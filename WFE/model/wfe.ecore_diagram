@@ -425,10 +425,6 @@
   <children xmi:type="notation:Shape" xmi:id="_In1IIJJYEeOhprgVJM1n1A" type="2001" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_In1vMJJYEeOhprgVJM1n1A" type="5001"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_In1vMZJYEeOhprgVJM1n1A" type="7001">
-      <children xmi:type="notation:Node" xmi:id="_STZC8JJiEeOhprgVJM1n1A" type="3001">
-        <element xmi:type="ecore:EAttribute" href="wfe.ecore#//Value/value"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_STZC8ZJiEeOhprgVJM1n1A"/>
-      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_In1vMpJYEeOhprgVJM1n1A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_In1vM5JYEeOhprgVJM1n1A"/>
     </children>
@@ -441,7 +437,7 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_In2WRZJYEeOhprgVJM1n1A"/>
     </children>
     <element xmi:type="ecore:EClass" href="wfe.ecore#//Value"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_In1IIZJYEeOhprgVJM1n1A" x="790" y="310"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_In1IIZJYEeOhprgVJM1n1A" x="790" y="310" width="91"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_TamcQJJaEeOhprgVJM1n1A" type="2001" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_TanDUJJaEeOhprgVJM1n1A" type="5001"/>
@@ -483,6 +479,10 @@
       <children xmi:type="notation:Node" xmi:id="_MgPYkJJiEeOhprgVJM1n1A" type="3001">
         <element xmi:type="ecore:EAttribute" href="wfe.ecore#//Variable/name"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_MgPYkZJiEeOhprgVJM1n1A"/>
+      </children>
+      <children xmi:type="notation:Node" xmi:id="_LY-VkJikEeOZj6YOMiTDQQ" type="3001">
+        <element xmi:type="ecore:EAttribute" href="wfe.ecore#//Variable/value"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_LY-VkZikEeOZj6YOMiTDQQ"/>
       </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_Mrn0EZJgEeOhprgVJM1n1A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_Mrn0EpJgEeOhprgVJM1n1A"/>
