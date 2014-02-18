@@ -4,3 +4,5 @@ WFE/src/
 WFE.edit/
 WFE.editor/
 WFE.tests/
+generate/bin/
+generate/src-gen/
