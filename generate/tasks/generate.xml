@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate" name="generate">
-    <property name="ECLIPSE_HOME" value="../../../../../../ProgrammingTools/eclipse-kepler"/>
-    <property name="ECLIPSE_WORKSPACE" value="../../../../../../Programming/Projects/Kepler"/>
+    <property name="ECLIPSE_HOME" value="../../../../Dropbox/Chalmers/DAT240/eclipse"/>
+    <property name="ECLIPSE_WORKSPACE" value="../.."/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="generate.libraryclasspath">

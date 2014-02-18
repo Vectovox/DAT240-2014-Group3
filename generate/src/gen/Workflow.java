@@ -1,4 +1,11 @@
 package gen;
 
-public class Workflow{
+public class Workflow 
+{
+	
+	public Workflow(){
+	}	
+	
+
+
 }
