@@ -6,3 +6,4 @@ WFE.editor/
 WFE.tests/
 generate/bin/
 generate/src-gen/
+generate/genBuild/
