@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/WFE/src" modelPluginID="WFE" modelName="Wfe" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="7.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>wfe.ecore</foreignModel>
+  <genPackages prefix="Wfe" disposableProviderFactory="true" ecorePackage="wfe.ecore#/">
+    <genClasses ecoreClass="wfe.ecore#//Arc">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Arc/source"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Arc/target"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Arc/name"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Workflow">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//Workflow/contains_arcs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//Workflow/has_resources"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//Workflow/contains_nodes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//Workflow/contains_expressions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="wfe.ecore#//Activity">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Activity/has_assigned"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Activity/description"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Gate">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Gate/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Custom">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Custom/path"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Sleep">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Sleep/seconds"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//StartNode"/>
+    <genClasses ecoreClass="wfe.ecore#//EndNode"/>
+    <genClasses ecoreClass="wfe.ecore#//Synchbar"/>
+    <genClasses image="false" ecoreClass="wfe.ecore#//Resource">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Resource/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Resource/description"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Actor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Actor/first_name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Actor/last_name"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Item"/>
+    <genClasses image="false" ecoreClass="wfe.ecore#//Node">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Node/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Node/success"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Node/finished"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Node/started"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Node/outgoing"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Node/incoming"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//Node/in"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//Confirm"/>
+    <genClasses ecoreClass="wfe.ecore#//Expression"/>
+    <genClasses ecoreClass="wfe.ecore#//Operator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//Operator/lhs"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//BinaryOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference wfe.ecore#//BinaryOperator/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//NOT"/>
+    <genClasses ecoreClass="wfe.ecore#//AND"/>
+    <genClasses ecoreClass="wfe.ecore#//OR"/>
+    <genClasses ecoreClass="wfe.ecore#//XOR"/>
+    <genClasses ecoreClass="wfe.ecore#//NOR"/>
+    <genClasses ecoreClass="wfe.ecore#//NAND"/>
+    <genClasses ecoreClass="wfe.ecore#//Value">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Value/value"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//SetVariable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//SetVariable/sets_variable"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference wfe.ecore#//SetVariable/sets_expression"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//True"/>
+    <genClasses ecoreClass="wfe.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute wfe.ecore#//Variable/name"/>
+    </genClasses>
+    <genClasses ecoreClass="wfe.ecore#//False"/>
+  </genPackages>
+</genmodel:GenModel>
