@@ -10,7 +10,7 @@ package gen;
 public[if (anEClass.abstract)] abstract [/if] class [anEClass.name.toUpperFirst() /] [for (c : EClass|anEClass.eSuperTypes)]extends [c.name/][/for] {
 	
 	public [anEClass.name.toUpperFirst()/]([for (a : EAttribute | anEClass.eAllAttributes) separator (', ')][a.eType.name.substring(2)/] [a.name/][/for]){
-		super([for (a : EAttribute | anEClass.eAllAttributes - anEClass.eAttributes) separator (', ')][a.name/][/for]);
+		super([for (a : EAttribute | anEClass.eAllAttributes->removeAll(anEClass.eAttributes)) separator (', ')][a.name/][/for]);
 		[for (a : EAttribute | anEClass.eAttributes)]
 		this.[a.name/] = [a.name/];		
 		[/for]
