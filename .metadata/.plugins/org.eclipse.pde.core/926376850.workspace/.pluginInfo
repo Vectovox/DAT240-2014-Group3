@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+	<bundle bundleID="1125" localization="plugin" name="%pluginName" project="WFE" provider="%providerName">
+		<library name="."/>
+	</bundle>
+</map>

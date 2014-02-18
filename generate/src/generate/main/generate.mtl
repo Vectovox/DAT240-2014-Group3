@@ -1,0 +1,10 @@
+[comment encoding = UTF-8 /]
+[module generate('http://wfe/1.0')]
+
+
+[template public generateElement(aWorkflow : Workflow)]
+[comment @main/]
+[file ('Workflow.java', false, 'UTF-8')]
+
+[/file]
+[/template]
