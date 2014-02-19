@@ -7,6 +7,10 @@
 [file (anEClass.name.concat('.java'), false, 'UTF-8')]
 package engine.gen;
 
+[if (anEClass.eAllReferences->size() > 0)]
+import java.util.List;
+[/if]
+
 [if ((anEClass.eAllOperations->size()>=1) and (anEClass.abstract._not()))]
 import engine.logic.*;
 import engine.logic.strategies.*;
@@ -16,11 +20,21 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	[for (a : EAttribute | anEClass.eAttributes)]
 	private [a.eType.name.substring(2)/] [a.name/];
 	[/for]
+	[for (r : EReference | anEClass.eReferences)]
+	[if (r.upperBound > 1)]
+	private List<[r.eReferenceType.name.toUpperFirst()/]> [r.name/];
+	[elseif (r.upperBound = 1)]
+	private [r.eReferenceType.name.toUpperFirst()/] [r.name/];
+	[/if]	
+	[/for]
 
-	public [anEClass.name.toUpperFirst()/]([for (a : EAttribute | anEClass.eAllAttributes) separator (', ')][a.eType.name.substring(2)/] [a.name/][/for]){
-		super([for (a : EAttribute | anEClass.eAllAttributes->removeAll(anEClass.eAttributes)) separator (', ')][a.name/][/for]);
+	public [anEClass.name.toUpperFirst()/]([for (a : EAttribute | anEClass.eAllAttributes) separator (', ')][a.eType.name.substring(2)/] [a.name/][/for][if (anEClass.eAllReferences->size() > 0)][if (anEClass.eAllAttributes->size() > 0)], [/if][for (r : EReference | anEClass.eAllReferences) separator (', ')][if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]> [r.name/][elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/] [r.name/][/if][/for][/if]){
+		super([for (a : EAttribute | anEClass.eAllAttributes->removeAll(anEClass.eAttributes)) separator (', ')][a.name/][/for][if (anEClass.eAllReferences->removeAll(anEClass.eReferences)->size() > 0)][if (anEClass.eAllAttributes->removeAll(anEClass.eAttributes)->size() > 0)], [/if][for (r : EReference | anEClass.eAllReferences->removeAll(anEClass.eReferences)) separator (', ')][if (r.upperBound > 1)][r.name/][elseif (r.upperBound = 1)][r.name/][/if][/for][/if]);
 		[for (a : EAttribute | anEClass.eAttributes)]
 		this.[a.name/] = [a.name/];
+		[/for]
+		[for (r : EReference | anEClass.eReferences)]
+		this.[r.name/] = [r.name/];	
 		[/for]
 	}	
 
@@ -28,11 +42,21 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	public [a.eType.name.substring(2)/] get[a.name.toUpperFirst()/]() {
 		return this.[a.name/];
 	}
+	[/for]	
+	[for (r : EReference | anEClass.eReferences) separator ('\n')]
+	public [if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] get[r.name.toUpperFirst()/]() {
+		return this.[r.name/];
+	}
 	[/for]
 
 	[for (a : EAttribute | anEClass.eAttributes) separator ('\n')]
 	public void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
 		this.[a.name/] = [a.name/];
+	}
+	[/for]
+	[for (r : EReference | anEClass.eReferences) separator ('\n')]
+	public void set[r.name.toUpperFirst()/]([if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] [r.name/]) {
+		this.[r.name/] = [r.name/];
 	}
 	[/for]
 	
