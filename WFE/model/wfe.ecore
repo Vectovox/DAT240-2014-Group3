@@ -49,13 +49,16 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Gate" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" lowerBound="1"
         eType="#//Expression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Custom" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Sleep" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seconds" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0"/>
   </eClassifiers>
@@ -77,7 +80,9 @@
       <details key="no_outgoing_arcs" value="&#xA;&#x9;&#x9;&#x9;self.outgoing->size() = 0"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Synchbar" eSuperTypes="#//Activity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Synchbar" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Resource" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -89,6 +94,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Item" eSuperTypes="#//Resource"/>
   <eClassifiers xsi:type="ecore:EClass" name="Node" abstract="true">
     <eOperations name="execute" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="success" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="finished" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
@@ -99,7 +105,9 @@
         eType="#//Arc" eOpposite="#//Arc/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="in" lowerBound="1" eType="#//Workflow"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Confirm" eSuperTypes="#//Activity"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Confirm" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true">
     <eOperations name="calculate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
@@ -116,6 +124,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="OR" eSuperTypes="#//BinaryOperator"/>
   <eClassifiers xsi:type="ecore:EClass" name="Value" abstract="true" eSuperTypes="#//Expression"/>
   <eClassifiers xsi:type="ecore:EClass" name="SetVariable" eSuperTypes="#//Activity">
+    <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sets_variable" lowerBound="1"
         eType="#//Variable"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="evaluated_expression" eType="#//Expression"/>
