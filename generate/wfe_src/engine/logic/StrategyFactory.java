@@ -14,7 +14,7 @@ public final class StrategyFactory {
 		return instance;
 	}
 	
-	public IOperationStrategy getStrategy(Class type, String name){
+	public IOperationStrategy getStrategy(String typename, String operation){
 		return new DefaultStrategy(); // TODO: Make strategies depending on the input
 	}
 }
