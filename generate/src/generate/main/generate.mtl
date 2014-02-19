@@ -7,37 +7,36 @@
 [file (anEClass.name.concat('.java'), false, 'UTF-8')]
 package gen;
 
-public[if (anEClass.abstract)] abstract [/if] class [anEClass.name.toUpperFirst() /] [for (c : EClass|anEClass.eSuperTypes)]extends [c.name/][/for] {
+public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for] {
 	
+	[for (a : EAttribute | anEClass.eAttributes)]
+	private [a.eType.name.substring(2)/] [a.name/];
+	[/for]
 
 	public [anEClass.name.toUpperFirst()/]([for (a : EAttribute | anEClass.eAllAttributes) separator (', ')][a.eType.name.substring(2)/] [a.name/][/for]){
 		super([for (a : EAttribute | anEClass.eAllAttributes->removeAll(anEClass.eAttributes)) separator (', ')][a.name/][/for]);
 		[for (a : EAttribute | anEClass.eAttributes)]
-		this.[a.name/] = [a.name/];		
+		this.[a.name/] = [a.name/];
 		[/for]
 	}	
-	
-	[for (a : EAttribute | anEClass.eAttributes)]
-	private [a.eType.name.substring(2)/] [a.name/];		
-	[/for]
 
 	[for (a : EAttribute | anEClass.eAttributes) separator ('\n')]
-	public  [a.eType.name.substring(2)/] get[a.name.toUpperFirst()/]() {
+	public [a.eType.name.substring(2)/] get[a.name.toUpperFirst()/]() {
 		return this.[a.name/];
-	}	
+	}
 	[/for]
 
 	[for (a : EAttribute | anEClass.eAttributes) separator ('\n')]
 	public void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
 		this.[a.name/] = [a.name/];
-	}	
+	}
 	[/for]
 	
 	[for (o : EOperation | anEClass.eOperations) separator ('\n')]
 	public [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
-		strategy = Factory.getStrategy([anEClass.name/], [o.name/]);
+		IOperationStrategy strategy = Factory.getStrategy(this.getClass(), [o.name/]);
 		strategy.execute(this);
-	}	
+	}
 	[/for]
 
 }
