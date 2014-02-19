@@ -9,6 +9,7 @@ package engine.gen;
 
 [if (anEClass.eOperations->size()>=1)]
 import engine.logic.*;
+import engine.logic.strategies.*;
 [/if]
 
 public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for] {
@@ -37,8 +38,9 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	
 	[for (o : EOperation | anEClass.eOperations) separator ('\n')]
 	public [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
-		IOperationStrategy strategy = StrategyFactory.getStrategy(this.getClass(), [o.name/]);
-		strategy.execute(this);
+		StrategyFactory factory = StrategyFactory.getInstance();
+		IOperationStrategy strategy = factory.getStrategy(this.getClass(), "[o.name/]");
+		return strategy.execute(this);
 	}
 	[/for]
 }

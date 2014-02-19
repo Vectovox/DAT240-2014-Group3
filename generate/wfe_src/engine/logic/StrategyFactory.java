@@ -1,10 +1,20 @@
 package engine.logic;
 
+import engine.logic.strategies.*;
+
 public final class StrategyFactory {
+	private static StrategyFactory instance = null;
 	
 	private StrategyFactory() {}
 	
-	public IOperationStrategy CreateStrategy(Class type, String name){
-		return null; // TODO: Make strategies depending on the input
+	public static StrategyFactory getInstance () {
+		if (instance == null) {
+			instance = new StrategyFactory();
+		}
+		return instance;
+	}
+	
+	public IOperationStrategy getStrategy(Class type, String name){
+		return new DefaultStrategy(); // TODO: Make strategies depending on the input
 	}
 }
