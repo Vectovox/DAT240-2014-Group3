@@ -7,7 +7,7 @@
 [file (anEClass.name.concat('.java'), false, 'UTF-8')]
 package engine.gen;
 
-[if (anEClass.eOperations->size()>=1)]
+[if ((anEClass.eAllOperations->size()>=1) and (anEClass.abstract._not()))]
 import engine.logic.*;
 import engine.logic.strategies.*;
 [/if]
@@ -36,13 +36,18 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	}
 	[/for]
 	
-	[for (o : EOperation | anEClass.eOperations) separator ('\n')]
+	[for (o : EOperation | anEClass.eAllOperations) separator ('\n')]
+	[if (anEClass.abstract)] 
+	public abstract [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]);
+	[else]
 	public [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
 		StrategyFactory factory = StrategyFactory.getInstance();
 		IOperationStrategy strategy = factory.getStrategy(this.getClass(), "[o.name/]");
 		return strategy.execute(this);
 	}
+	[/if]
 	[/for]
+
 }
 [/file]
 [/template]
