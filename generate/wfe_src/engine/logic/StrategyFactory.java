@@ -16,13 +16,15 @@ public final class StrategyFactory {
 	
 	public IOperationStrategy getStrategy(String typename, String operation){
 		
-		switch(typename)
-		{
+		switch(typename) {
 			case "True":
 				return new ConstantStrategy(true);
 			case "False":
 				return new ConstantStrategy(false);
+			case "Sleep":
+				return new SleepStrategy();
+			default:
+				return new DefaultStrategy(); // TODO: Make strategies depending on the input
 		}
-		return new DefaultStrategy(); // TODO: Make strategies depending on the input
 	}
 }
