@@ -11,7 +11,7 @@ public class SleepStrategy implements IOperationStrategy {
 	 * @param owner - Must be of class type Sleep.
 	 * @return True if the timeout is executed and uninterrupted.
 	 * @throws IllegalArgumentException if owner.getClass() != Sleep.class.
-	 * @throws InteruptedExxception if the sleep is interrupted.
+	 * @throws InteruptedException if the sleep is interrupted.
 	 */
 	@Override
 	public boolean execute(Object owner) {
