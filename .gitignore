@@ -4,6 +4,10 @@ WFE/src/
 WFE.edit/
 WFE.editor/
 WFE.tests/
+generate/build.acceleo
 generate/bin/
 generate/genBuild/
+generate/src/generate/main/Generate.java
+generate/tasks/generate.xml
+generate/tasks/generateTarget.xml
 generate/wfe_src/engine/gen/
