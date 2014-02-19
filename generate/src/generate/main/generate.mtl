@@ -7,7 +7,9 @@
 [file (anEClass.name.concat('.java'), false, 'UTF-8')]
 package engine.gen;
 
+[if (anEClass.eOperations->size()>=1)]
 import engine.logic.*;
+[/if]
 
 public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for] {
 	[for (a : EAttribute | anEClass.eAttributes)]
