@@ -5,7 +5,9 @@
 [template public generateElement(anEClass : EClass)]
 [comment @main/]
 [file (anEClass.name.concat('.java'), false, 'UTF-8')]
-package gen;
+package engine.gen;
+
+import engine.logic.*;
 
 public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for] {
 	
