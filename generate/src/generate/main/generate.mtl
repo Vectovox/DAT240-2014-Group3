@@ -42,7 +42,7 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	[else]
 	public [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
 		StrategyFactory factory = StrategyFactory.getInstance();
-		IOperationStrategy strategy = factory.getStrategy(this.getClass(), "[o.name/]");
+		IOperationStrategy strategy = factory.getStrategy("[anEClass.name.toUpperFirst()/]", "[o.name/]");
 		return strategy.execute(this);
 	}
 	[/if]
