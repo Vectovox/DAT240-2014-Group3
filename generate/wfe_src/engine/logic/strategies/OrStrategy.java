@@ -13,6 +13,7 @@ public class OrStrategy implements IOperationStrategy{
 	 * Standard injection-method. 
 	 * @param owner Object to which the strategy is being injected
 	 * @return Success
+	 * @throws IllegalArgumentException if input object is not of type OR
 	 */
 	@Override
 	public boolean execute(Object owner){
@@ -21,11 +22,9 @@ public class OrStrategy implements IOperationStrategy{
 		if(owner instanceof OR){
 			OR n = (OR) owner;
 			
-			if(n.getLhs().calculate() || n.getRhs().calculate()){
-				outcome = true;
-			}
+			outcome = n.getLhs().calculate() || n.getRhs().calculate();
 		}else{
-			throw new IllegalArgumentException("The supplied owner is not a node");
+			throw new IllegalArgumentException("The supplied owner is not an OR object");
 		}
 		return outcome;
 	}

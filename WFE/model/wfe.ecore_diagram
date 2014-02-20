@@ -406,6 +406,10 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_iJidQ5JXEeOhprgVJM1n1A"/>
     </children>
     <children xmi:type="notation:BasicCompartment" xmi:id="_iJidRJJXEeOhprgVJM1n1A" type="7002">
+      <children xmi:type="notation:Node" xmi:id="_l9BqoJomEeOVudbSguTv2Q" type="3002">
+        <element xmi:type="ecore:EOperation" href="wfe.ecore#//NOT/calculate"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_l9BqoZomEeOVudbSguTv2Q"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_iJjEUJJXEeOhprgVJM1n1A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_iJjEUZJXEeOhprgVJM1n1A"/>
     </children>
@@ -423,6 +427,10 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_kExa4pJXEeOhprgVJM1n1A"/>
     </children>
     <children xmi:type="notation:BasicCompartment" xmi:id="_kExa45JXEeOhprgVJM1n1A" type="7002">
+      <children xmi:type="notation:Node" xmi:id="_fE5VMJomEeOVudbSguTv2Q" type="3002">
+        <element xmi:type="ecore:EOperation" href="wfe.ecore#//AND/calculate"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_fE5VMZomEeOVudbSguTv2Q"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_kExa5JJXEeOhprgVJM1n1A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_kExa5ZJXEeOhprgVJM1n1A"/>
     </children>
@@ -440,6 +448,10 @@
       <styles xmi:type="notation:FilteringStyle" xmi:id="_nUxMApJXEeOhprgVJM1n1A"/>
     </children>
     <children xmi:type="notation:BasicCompartment" xmi:id="_nUxMA5JXEeOhprgVJM1n1A" type="7002">
+      <children xmi:type="notation:Node" xmi:id="_jJ-7QJomEeOVudbSguTv2Q" type="3002">
+        <element xmi:type="ecore:EOperation" href="wfe.ecore#//OR/calculate"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jJ-7QZomEeOVudbSguTv2Q"/>
+      </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_nUxMBJJXEeOhprgVJM1n1A"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_nUxMBZJXEeOhprgVJM1n1A"/>
     </children>
