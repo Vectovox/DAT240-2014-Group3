@@ -35,6 +35,10 @@ public final class StrategyFactory {
 				return new SynchbarStrategy();
 			case "Confirm":
 				return new ConfirmStrategy();
+			case "Node":
+				if (operation.equals("execute")) {
+					return new NodeStrategy();
+				}
 			default:
 				return new DefaultStrategy(); // TODO: Make strategies depending on the input
 		}
