@@ -13,6 +13,7 @@ public class NotStrategy implements IOperationStrategy{
 	 * Standard injection-method. 
 	 * @param owner Object to which the strategy is being injected
 	 * @return Success
+	 * @throws IllegalArgumentException if input object is not of type NOT
 	 */
 	@Override
 	public boolean execute(Object owner){
@@ -21,11 +22,9 @@ public class NotStrategy implements IOperationStrategy{
 		if(owner instanceof NOT){
 			NOT n = (NOT) owner;
 			
-			if(!n.getLhs().calculate()){
-				outcome = true;
-			}
+			outcome = !n.getLhs().calculate();
 		}else{
-			throw new IllegalArgumentException("The supplied owner is not a node");
+			throw new IllegalArgumentException("The supplied owner is not a NOT object");
 		}
 		return outcome;
 	}
