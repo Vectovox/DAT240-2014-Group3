@@ -11,7 +11,7 @@
 	
 	public final class Main {
 	
-		public static int main(final String['['']'/] args) {
+		public static void main(final String['['']'/] args) {
 
 			// Create empty workflow
 			[aWorkflow.eClass().name/] workflow = new [aWorkflow.eClass().name/]("[aWorkflow.name/]", new LinkedList<Arc>(), new LinkedList<Resource>(), new LinkedList<Node>(), new LinkedList<Expression>());
@@ -51,22 +51,42 @@
 			[/for]
 
 			// Generate expressions
+			final HashMap<String, Expression> expressionByName = new HashMap<String, Expression>();
+			final HashMap<Expression, String> lhsByExpression = new HashMap<Expression, String>();
+			final HashMap<Expression, String> rhsByExpression = new HashMap<Expression, String>();
 			Expression e = null;
 			[for (e : Expression | aWorkflow.contains_expressions)]
 			[if(e.eClass() = AND)]
-			e = new [e.eClass().name/](/*TODO: !!!!!*/, /*TODO: !!!!!*/); 
+			e = new [e.eClass().name/](null, null);
+			lhsByExpression.put(e,"[e.oclAsType(AND).lhs.name/]");
+			rhsByExpression.put(e,"[e.oclAsType(AND).rhs.name/]");
 			[elseif(e.eClass() = OR)]
-			e = new [e.eClass().name/](/*TODO: !!!!!*/, /*TODO: !!!!!*/);
+			e = new [e.eClass().name/](null, null);
+			lhsByExpression.put(e,"[e.oclAsType(OR).lhs.name/]");
+			rhsByExpression.put(e,"[e.oclAsType(OR).rhs.name/]");
 			[elseif(e.eClass() = NOT)]
-			e = new [e.eClass().name/](/*TODO: !!!!!*/);
+			e = new [e.eClass().name/](null);
+			lhsByExpression.put(e,"[e.oclAsType(NOT).lhs.name/]");
 			[elseif(e.eClass() = Variable)]
 			e = new [e.eClass().name/]("[e.oclAsType(Variable).name/]", [e.oclAsType(Variable).value/]);
 			[else]
 			e = new [e.eClass().name/]();
 			[/if]
 			workflow.getContains_expressions().add(e);
+			expressionByName.put("[e.name/]", e);
 			[/for]
+			
+			for(Expression e2: workflow.getContains_expressions()){
+				if(e2 instanceof BinaryOperator){
+					((BinaryOperator)e2).setRhs(expressionByName.get(rhsByExpression.get(e2)));
+				}
+				if(e2 instanceof Operator){
+					((Operator)e2).setLhs(expressionByName.get(lhsByExpression.get(e2)));
+				}
+			}
+				
 
+			
 			// Generate nodes
 			Node n = null;
 			final HashMap<Arc, Node> sourceNodeByArc = new HashMap<Arc, Node>();
@@ -74,19 +94,19 @@
 
 			[for (n : Node | aWorkflow.contains_nodes)]
 			[if (n.eClass() = Sleep)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Sleep).description/]", [n.oclAsType(Sleep).seconds/], outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>());
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Sleep).description/]", [n.oclAsType(Sleep).seconds/], outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>());
 			[elseif (n.eClass() = Custom)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Custom).description/]", [n.oclAsType(Custom).path/], outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>());
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Custom).description/]", [n.oclAsType(Custom).path/], outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>());
 			[elseif (n.eClass() = Confirm)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Confirm).description/]", outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>());
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Confirm).description/]", outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>());
 			[elseif (n.eClass() = Synchbar)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Synchbar).description/]", outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>());
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Synchbar).description/]", outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>());
 			[elseif (n.eClass() = Gate)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Gate).description/]", outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>(), null /* TODO: WE NEED THIS FUCKING SHIT. REFERENCE TO EXPRESSION BRO! */);
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(Gate).description/]", outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>(), expressionByName.get("[n.oclAsType(Gate).condition.name/]"));
 			[elseif (n.eClass() = SetVariable)]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(SetVariable).description/]", outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow, new LinkedList<Resource>(), variableByName.get([n.oclAsType(SetVariable).sets_variable.name/]), null /* TODO: WE NEED THIS FUCKING SHIT. REFERENCE TO EXPRESSION BRO! */);
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, "[n.oclAsType(SetVariable).description/]", outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow, new LinkedList<Resource>(), variableByName.get("[n.oclAsType(SetVariable).sets_variable.name/]"), "expressionByName.get("[n.oclAsType(SetVariable).evaluated_expression.name/]")");
 			[else]
-			n = new [n.eClass().name/]("[n.name/]", false, false, false, outgoingArcByNodeName.get(n.getName()), incomingArcByNodeName.get(n.getName()), workflow);
+			n = new [n.eClass().name/]("[n.name/]", false, false, false, outgoingArcByNodeName.get("[n.name/]"), incomingArcByNodeName.get("[n.name/]"), workflow);
 			[/if]
 
 			[if (n.eClass().isInstance(Activity))]
@@ -100,11 +120,15 @@
 			[/if]
 			workflow.getContains_nodes().add(n);
 			
-			for(Arc a2 : outgoingArcByNodeName.get("[n.name/]")) {
-				sourceNodeByArc.put(a2, n);
+			if(outgoingArcByNodeName.containsKey("[n.name/]")){
+				for(Arc a2 : outgoingArcByNodeName.get("[n.name/]")) {
+					sourceNodeByArc.put(a2, n);
+				}
 			}
-			for(Arc a2 : incomingArcByNodeName.get("[n.name/]")) {
-				targetNodeByArc.put(a2, n);
+			if(incomingArcByNodeName.containsKey("[n.name/]")){
+				for(Arc a2 : incomingArcByNodeName.get("[n.name/]")) {
+					targetNodeByArc.put(a2, n);
+				}
 			}
 			[/for]
 
@@ -119,7 +143,6 @@
 			// Run workflow
 			startNode.run();
 			
-			return 0;
 		}
 	}
 	[/file]
