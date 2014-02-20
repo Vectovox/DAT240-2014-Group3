@@ -50,12 +50,12 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	[/for]
 
 	[for (a : EAttribute | anEClass.eAttributes) separator ('\n')]
-	public void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
+	public synchronized void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
 		this.[a.name/] = [a.name/];
 	}
 	[/for]
 	[for (r : EReference | anEClass.eReferences) separator ('\n')]
-	public void set[r.name.toUpperFirst()/]([if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] [r.name/]) {
+	public synchronized void set[r.name.toUpperFirst()/]([if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] [r.name/]) {
 		this.[r.name/] = [r.name/];
 	}
 	[/for]

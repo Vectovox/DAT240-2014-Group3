@@ -36,7 +36,8 @@ public class RunStrategy implements IOperationStrategy {
 			
 			if (success){
 				for (Arc arc : node.getOutgoing()) {
-					new Thread(arc.getTarget());			
+					Thread thread = new Thread(arc.getTarget());
+					thread.start();
 				}
 			}
 			else{
