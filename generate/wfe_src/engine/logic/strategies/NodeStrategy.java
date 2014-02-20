@@ -21,7 +21,7 @@ public class NodeStrategy implements IOperationStrategy {
 	public boolean execute(Object owner) {
 		boolean success = false; 
 		
-		if (owner instanceof Node) {
+		if(owner != null && owner instanceof Node) {
 			Node node = (Node) owner;
 			
 			//Setup

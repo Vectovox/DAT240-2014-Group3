@@ -16,7 +16,7 @@ public class SynchbarStrategy implements IOperationStrategy {
 	 */
 	@Override
 	public boolean execute(Object owner) {
-		if (owner instanceof Synchbar) {
+		if(owner != null && owner instanceof Synchbar) {
 			Synchbar s = (Synchbar) owner;
 			
 			for (Arc arc : s.getIncoming()) {

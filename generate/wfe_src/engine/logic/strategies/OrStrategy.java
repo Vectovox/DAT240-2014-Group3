@@ -19,11 +19,11 @@ public class OrStrategy implements IOperationStrategy{
 	public boolean execute(Object owner){
 		boolean outcome = false;
 		
-		if(owner instanceof OR){
+		if(owner != null && owner instanceof OR){
 			OR n = (OR) owner;
 			
 			outcome = n.getLhs().calculate() || n.getRhs().calculate();
-		}else{
+		} else {
 			throw new IllegalArgumentException("The supplied owner is not an OR object");
 		}
 		return outcome;

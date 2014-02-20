@@ -19,11 +19,11 @@ public class AndStrategy implements IOperationStrategy{
 	public boolean execute(Object owner){
 		boolean outcome = false;
 		
-		if(owner instanceof AND){
+		if(owner != null && owner instanceof AND){
 			AND n = (AND) owner;
 			
 			outcome = n.getLhs().calculate() && n.getRhs().calculate();
-		}else{
+		} else {
 			throw new IllegalArgumentException("The supplied owner is not an AND object");
 		}
 		return outcome;

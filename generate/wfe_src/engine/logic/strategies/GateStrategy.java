@@ -13,14 +13,14 @@ public class GateStrategy implements IOperationStrategy {
 	 */
 	@Override
 	public boolean execute(Object owner) {
-		if(owner instanceof Gate){
+		if(owner != null && owner instanceof Gate){
 			Gate g = (Gate) owner;
 			g.setStarted(true);
 			
 			Expression expression = g.getCondition();
 			
 			return expression.calculate();
-		}else{
+		} else {
 			throw new IllegalArgumentException("The supplied owner is not a Gate");
 		}
 		

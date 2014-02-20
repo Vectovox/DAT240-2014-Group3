@@ -19,11 +19,11 @@ public class NotStrategy implements IOperationStrategy{
 	public boolean execute(Object owner){
 		boolean outcome = false;
 		
-		if(owner instanceof NOT){
+		if(owner != null && owner instanceof NOT){
 			NOT n = (NOT) owner;
 			
 			outcome = !n.getLhs().calculate();
-		}else{
+		} else {
 			throw new IllegalArgumentException("The supplied owner is not a NOT object");
 		}
 		return outcome;
