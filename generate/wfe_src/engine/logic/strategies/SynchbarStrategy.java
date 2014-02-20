@@ -16,7 +16,6 @@ public class SynchbarStrategy implements IOperationStrategy {
 	 */
 	@Override
 	public boolean execute(Object owner) {
-		//TODO repeat until true? or do this elsewhere?
 		if (owner instanceof Synchbar) {
 			Synchbar s = (Synchbar) owner;
 			
@@ -29,6 +28,7 @@ public class SynchbarStrategy implements IOperationStrategy {
 			
 			//all source nodes were finished.
 			return true;
+			
 		} else {
 			throw new IllegalArgumentException("The supplied owner is not a synchbar");
 		}
