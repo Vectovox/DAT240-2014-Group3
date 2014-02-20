@@ -1,6 +1,8 @@
 package engine.logic.strategies;
 
+import engine.gen.Expression;
 import engine.gen.SetVariable;
+import engine.gen.Variable;
 
 public class SetVariableStrategy implements IOperationStrategy {
 
@@ -12,11 +14,15 @@ public class SetVariableStrategy implements IOperationStrategy {
 		SetVariable sv = (SetVariable)owner;
 		sv.setStarted(true);
 		
-		//TODO Do zhe magic!
+		Variable var = sv.getSets_variable();
+		Expression exp = sv.getSets_variable();
+		
+		if(var != null && exp != null)
+			var.setValue(exp.calculate());
 		
 		sv.setSuccess(true);
 		sv.setFinished(true);
-		return true;
+		return true; // TODO What is the return value?
 	}
 
 }
