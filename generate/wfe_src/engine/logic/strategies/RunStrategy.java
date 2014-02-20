@@ -1,5 +1,6 @@
 package engine.logic.strategies;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -43,10 +44,20 @@ public class RunStrategy implements IOperationStrategy {
 			
 			if (success){
 				logger.log(Level.INFO, "EXECUTION FINISHED for: "+node.getName()+" ("+node.getClass()+")");
-				for (Arc arc : node.getOutgoing()) {
-					logger.log(Level.INFO, "STARTING NEW THREAD: "+arc.getTarget().getName()+" ("+arc.getTarget().getClass()+")"+" FROM: "+node.getName()+" ("+node.getClass()+")");
-					Thread thread = new Thread(arc.getTarget());
-					thread.start();
+				
+				//Get outgoing arcs of (this) finished node
+				List<Arc> outgoing = node.getOutgoing();
+				if(outgoing != null && outgoing.size() > 0) {
+					for (Arc arc : node.getOutgoing()) {
+						logger.log(Level.INFO, "STARTING NEW THREAD: "+arc.getTarget().getName()+" ("+arc.getTarget().getClass()+")"+" FROM: "+node.getName()+" ("+node.getClass()+")");
+						Thread thread = new Thread(arc.getTarget());
+						thread.start();
+					}
+				} else {
+					logger.log(Level.INFO, "NO OUTGOING ARCS, THIS IS THE END");
+					//OCL Guarantees that Activities and StartNode have >0 outgoing => This is an EndNode
+					// => Exit Workflow. TODO: Terminate in EndNodes Strategy instead?
+					System.exit(0);
 				}
 			}
 			else{
