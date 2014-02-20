@@ -17,10 +17,11 @@ public class SleepStrategy implements IOperationStrategy {
 	public boolean execute(Object owner) {
 		if(owner != null && owner.getClass() == Sleep.class) {
 			Sleep sleep = (Sleep) owner;
+			//Convert seconds stored in double to milliseconds 
 			long sleepTime = (long) (sleep.getSeconds()*1000+0.5);
 			
 			try {
-				TimeUnit.SECONDS.sleep(sleepTime);
+				TimeUnit.MILLISECONDS.sleep(sleepTime);
 				return true;
 			} catch (InterruptedException e) {
 				e.printStackTrace();

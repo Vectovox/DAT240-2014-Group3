@@ -23,8 +23,24 @@ public final class StrategyFactory {
 				return new ConstantStrategy(false);
 			case "Sleep":
 				return new SleepStrategy();
+			case "AND":
+				return new AndStrategy();
+			case "OR":
+				return new OrStrategy();
+			case "NOT":
+				return new NotStrategy();
+			case "Gate":
+				return new GateStrategy();
+			case "Synchbar":
+				return new SynchbarStrategy();
+			case "Confirm":
+				return new ConfirmStrategy();
+			case "Node":
+				if (operation.equals("run")) {
+					return new RunStrategy();
+				}
 			default:
-				return new DefaultStrategy(); // TODO: Make strategies depending on the input
+				return new DefaultStrategy();
 		}
 	}
 }

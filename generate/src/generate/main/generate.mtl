@@ -16,7 +16,7 @@ import engine.logic.*;
 import engine.logic.strategies.*;
 [/if]
 
-public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for] {
+public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for][if (anEClass.getEAnnotation('Interface') <> null)] implements [for (anno : EAnnotation | anEClass.eAnnotations->any(anEClass.getEAnnotation('Interface') <> null )) separator (', ')][anno.details.value/][/for][/if]{
 	[for (a : EAttribute | anEClass.eAttributes)]
 	private [a.eType.name.substring(2)/] [a.name/];
 	[/for]
@@ -50,21 +50,21 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	[/for]
 
 	[for (a : EAttribute | anEClass.eAttributes) separator ('\n')]
-	public void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
+	public synchronized void set[a.name.toUpperFirst()/]([a.eType.name.substring(2)/] [a.name/]) {
 		this.[a.name/] = [a.name/];
 	}
 	[/for]
 	[for (r : EReference | anEClass.eReferences) separator ('\n')]
-	public void set[r.name.toUpperFirst()/]([if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] [r.name/]) {
+	public synchronized void set[r.name.toUpperFirst()/]([if (r.upperBound > 1)]List<[r.eReferenceType.name.toUpperFirst()/]>[elseif (r.upperBound = 1)][r.eReferenceType.name.toUpperFirst()/][/if] [r.name/]) {
 		this.[r.name/] = [r.name/];
 	}
 	[/for]
 	
 	[for (o : EOperation | anEClass.eOperations) separator ('\n')]
-	public [o.eType.name.substring(2)/] [o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
+	public [if(o.eType = null)]void [else][o.eType.name.substring(2) /] [/if][o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
 		StrategyFactory factory = StrategyFactory.getInstance();
 		IOperationStrategy strategy = factory.getStrategy("[anEClass.name.toUpperFirst()/]", "[o.name/]");
-		return strategy.execute(this);
+		[if(o.eType <> null)]return [/if]strategy.execute(this);
 	}
 	[/for]
 
