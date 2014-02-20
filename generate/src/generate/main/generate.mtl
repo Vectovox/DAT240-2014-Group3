@@ -16,7 +16,7 @@ import engine.logic.*;
 import engine.logic.strategies.*;
 [/if]
 
-public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for][if (anEClass.eAnnotations->size() > 0)] implements [for (anno : EAnnotation | anEClass.eAnnotations) separator (', ')][anno.details.value/][/for][/if]{
+public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for][if (anEClass.getEAnnotation('Interface') <> null)] implements [for (anno : EAnnotation | anEClass.eAnnotations->any(anEClass.getEAnnotation('Interface') <> null )) separator (', ')][anno.details.value/][/for][/if]{
 	[for (a : EAttribute | anEClass.eAttributes)]
 	private [a.eType.name.substring(2)/] [a.name/];
 	[/for]
@@ -64,7 +64,7 @@ public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst()
 	public [if(o.eType = null)]void [else][o.eType.name.substring(2) /] [/if][o.name/]([for (p : EParameter | o.eParameters) separator (', ')] [p.eType.name.substring(2)/] [o.name/][/for]) {
 		StrategyFactory factory = StrategyFactory.getInstance();
 		IOperationStrategy strategy = factory.getStrategy("[anEClass.name.toUpperFirst()/]", "[o.name/]");
-		[if(o.eType <> null)]return strategy.execute(this);[/if]
+		[if(o.eType <> null)]return [/if]strategy.execute(this);
 	}
 	[/for]
 
