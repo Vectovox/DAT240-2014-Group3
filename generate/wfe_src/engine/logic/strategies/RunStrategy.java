@@ -27,14 +27,14 @@ public class RunStrategy implements IOperationStrategy {
 		
 		if(owner != null && owner instanceof Node) {
 			Node node = (Node) owner;
-			logger.log(Level.INFO, "ENTERED NODE: "+node.getClass());
-			logger.log(Level.INFO, "RESETTING FLAGS for: "+node.getClass());
+			logger.log(Level.INFO, "ENTERED NODE: "+node.getName()+" ("+node.getClass()+")");
+			logger.log(Level.INFO, "RESETTING FLAGS for: "+node.getName()+" ("+node.getClass()+")");
 			
 			//Setup flags 
 			node.setStarted(true);
 			node.setFinished(false);
 			
-			logger.log(Level.INFO, "STARTING EXECUTION for: "+node.getClass());
+			logger.log(Level.INFO, "STARTING EXECUTION for: "+node.getName()+" ("+node.getClass()+")");
 			success = node.strategy();
 			
 			//Teardown
@@ -42,15 +42,15 @@ public class RunStrategy implements IOperationStrategy {
 			node.setSuccess(success);
 			
 			if (success){
-				logger.log(Level.INFO, "EXECUTION FINISHED for: "+node.getName());
+				logger.log(Level.INFO, "EXECUTION FINISHED for: "+node.getName()+" ("+node.getClass()+")");
 				for (Arc arc : node.getOutgoing()) {
-					logger.log(Level.INFO, "STARTING NEW THREAD for: "+arc.getTarget().getName());
+					logger.log(Level.INFO, "STARTING NEW THREAD: "+arc.getTarget().getName()+" ("+arc.getTarget().getClass()+")"+" FROM: "+node.getName()+" ("+node.getClass()+")");
 					Thread thread = new Thread(arc.getTarget());
 					thread.start();
 				}
 			}
 			else{
-				logger.log(Level.WARNING, "EXECUTION RETURNED UNSUCCESSFUL, NO NEW THREAD STARTED");
+				logger.log(Level.WARNING, "EXECUTION RETURNED UNSUCCESSFUL, NO NEW THREAD STARTED in: "+node.getName()+" ("+node.getClass()+")");
 			}
 		} else {
 			throw new IllegalArgumentException("Parameter must be of class Node.");
