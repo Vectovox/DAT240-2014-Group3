@@ -18,15 +18,12 @@ public class AndStrategy implements IOperationStrategy{
 	public boolean execute(Object owner){
 		boolean outcome = false;
 		
-		if(owner instanceof Node){
-			Node n = (Node) owner;
-			n.setStarted(true);
+		if(owner instanceof AND){
+			AND n = (AND) owner;
 			
-			if(this.getLhs().calculate() && this.getRhs().calculate()){
+			if(n.getLhs().calculate() && n.getRhs().calculate()){
 				outcome = true;
 			}
-			n.setSuccess(outcome);
-			n.setFinished(true);
 		}else{
 			throw new IllegalArgumentException("The supplied owner is not a node");
 		}

@@ -18,15 +18,12 @@ public class NotStrategy implements IOperationStrategy{
 	public boolean execute(Object owner){
 		boolean outcome = false;
 		
-		if(owner instanceof Node){
-			Node n = (Node) owner;
-			n.setStarted(true);
+		if(owner instanceof NOT){
+			NOT n = (NOT) owner;
 			
-			if(!this.getLhs().calculate()){
+			if(!n.getLhs().calculate()){
 				outcome = true;
 			}
-			n.setSuccess(outcome);
-			n.setFinished(true);
 		}else{
 			throw new IllegalArgumentException("The supplied owner is not a node");
 		}
