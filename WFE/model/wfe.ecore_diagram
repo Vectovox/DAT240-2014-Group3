@@ -289,10 +289,6 @@
       <layoutConstraint xmi:type="notation:Ratio" xmi:id="_VQH60I11EeOLxOeCMeFkow" value="0.44"/>
     </children>
     <children xmi:type="notation:BasicCompartment" xmi:id="_WMaWcIzREeOLxOeCMeFkow" type="7002">
-      <children xmi:type="notation:Node" xmi:id="_0XUnsJl7EeOp3tpbGZPwPA" type="3002">
-        <element xmi:type="ecore:EOperation" href="wfe.ecore#//Node/execute"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_0XUnsZl7EeOp3tpbGZPwPA"/>
-      </children>
       <children xmi:type="notation:Node" xmi:id="__vVo0Jl7EeOp3tpbGZPwPA" type="3002">
         <element xmi:type="ecore:EOperation" href="wfe.ecore#//Node/strategy"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="__vVo0Zl7EeOp3tpbGZPwPA"/>

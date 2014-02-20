@@ -36,14 +36,11 @@ public final class StrategyFactory {
 			case "Confirm":
 				return new ConfirmStrategy();
 			case "Node":
-				if (operation.equals("execute")) {
-					return new NodeStrategy();
-				}
-				else if (operation.equals("run")) {
+				if (operation.equals("run")) {
 					return new RunStrategy();
 				}
 			default:
-				return new DefaultStrategy(); // TODO: Make strategies depending on the input
+				return new DefaultStrategy();
 		}
 	}
 }
