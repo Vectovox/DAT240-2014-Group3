@@ -54,9 +54,10 @@ public class RunStrategy implements IOperationStrategy {
 						thread.start();
 					}
 				} else {
-					logger.log(Level.INFO, "NO OUTGOING ARCS, THIS IS THE END?");
-					//TODO This always => EndNode? 
-					// If we can guarantee that, we should probably make a clean exit here.
+					logger.log(Level.INFO, "NO OUTGOING ARCS, THIS IS THE END");
+					//OCL Guarantees that Activities and StartNode have >0 outgoing => This is an EndNode
+					// => Exit Workflow. TODO: Terminate in EndNodes Strategy instead?
+					System.exit(0);
 				}
 			}
 			else{
