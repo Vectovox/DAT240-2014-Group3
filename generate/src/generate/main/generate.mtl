@@ -16,11 +16,7 @@ import engine.logic.*;
 import engine.logic.strategies.*;
 [/if]
 
-<<<<<<< HEAD
-public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for][if (anEClass.eAnnotations->count(anEClass.eAnnotations.source.contains('Implements')) > 0)] implements [for (anno : EAnnotation | anEClass.eAnnotations->any(anEClass.getEAnnotation('Implements') <> null )) separator (', ')][anno.details.value/][/for][/if]{
-=======
 public[if (anEClass.abstract)] abstract[/if] class [anEClass.name.toUpperFirst() /][for (c : EClass|anEClass.eSuperTypes)] extends [c.name/][/for][if (anEClass.getEAnnotation('Interface') <> null)] implements [for (anno : EAnnotation | anEClass.eAnnotations->any(anEClass.getEAnnotation('Interface') <> null )) separator (', ')][anno.details.value/][/for][/if]{
->>>>>>> refs/heads/workflow_implements_bugfix
 	[for (a : EAttribute | anEClass.eAttributes)]
 	private [a.eType.name.substring(2)/] [a.name/];
 	[/for]
