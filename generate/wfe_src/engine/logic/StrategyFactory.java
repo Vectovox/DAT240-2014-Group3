@@ -39,6 +39,9 @@ public final class StrategyFactory {
 				if (operation.equals("execute")) {
 					return new NodeStrategy();
 				}
+				else if (operation.equals("run")) {
+					return new RunStrategy();
+				}
 			default:
 				return new DefaultStrategy(); // TODO: Make strategies depending on the input
 		}
