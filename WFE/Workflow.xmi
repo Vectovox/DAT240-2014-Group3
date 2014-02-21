@@ -3,68 +3,57 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:wfe="http://wfe/1.0">
+    xmlns:wfe="http://wfe/1.0"
+    xsi:schemaLocation="http://wfe/1.0 model/wfe.ecore"
+    name="dieWorkflow">
   <contains_arcs
-      source="//@contains_nodes.0"
-      target="//@contains_nodes.2"
-      name="start > wait"/>
+      source="start"
+      target="confirm"
+      name="startToConfirm"/>
   <contains_arcs
-      source="//@contains_nodes.2"
-      target="//@contains_nodes.1"
-      name="wait > end"/>
+      source="start"
+      target="wait"
+      name="startToSleep"/>
   <contains_arcs
-      source="//@contains_nodes.0"
-      target="//@contains_nodes.4"
-      name="start  > confirm1"/>
+      source="synch"
+      target="end"
+      name="synchToEnd"/>
   <contains_arcs
-      source="//@contains_nodes.4"
-      target="//@contains_nodes.3"
-      name="confirm1 > gate1"/>
+      source="wait"
+      target="synch"
+      name="sleepToSynch"/>
   <contains_arcs
-      source="//@contains_nodes.3"
-      target="//@contains_nodes.1"
-      name="gate1 > end"/>
-  <has_resources
-      xsi:type="wfe:Actor"
-      name="Employee1"
-      description=""
-      first_name="Klaus"
-      last_name="Stapelfahrer"/>
+      source="confirm"
+      target="synch"
+      name="confirmToSynch"/>
   <contains_nodes
       xsi:type="wfe:StartNode"
       name="start"
-      outgoing="//@contains_arcs.0 //@contains_arcs.2"
-      in="/"/>
-  <contains_nodes
-      xsi:type="wfe:EndNode"
-      name="end"
-      incoming="//@contains_arcs.1 //@contains_arcs.4"
+      outgoing="startToConfirm startToSleep"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:Sleep"
       name="wait"
-      outgoing="//@contains_arcs.1"
-      incoming="//@contains_arcs.0"
-      in="/"
-      description="">
-    <seconds>30.0</seconds>
+      outgoing="sleepToSynch"
+      incoming="startToSleep"
+      in="/">
+    <seconds>10.0</seconds>
   </contains_nodes>
   <contains_nodes
-      xsi:type="wfe:Gate"
-      name="gate1"
-      outgoing="//@contains_arcs.4"
-      incoming="//@contains_arcs.3"
-      in="/"
-      description=""
-      condition="//@contains_expressions.0"/>
-  <contains_nodes
       xsi:type="wfe:Confirm"
-      name="confirm1"
-      outgoing="//@contains_arcs.3"
-      incoming="//@contains_arcs.2"
-      in="/"
-      has_assigned="//@has_resources.0"/>
-  <contains_expressions
-      xsi:type="wfe:Variable"
-      name="continue"/>
+      name="confirm"
+      outgoing="confirmToSynch"
+      incoming="startToConfirm"
+      in="/"/>
+  <contains_nodes
+      xsi:type="wfe:Synchbar"
+      name="synch"
+      outgoing="synchToEnd"
+      incoming="sleepToSynch confirmToSynch"
+      in="/"/>
+  <contains_nodes
+      xsi:type="wfe:EndNode"
+      name="end"
+      incoming="synchToEnd"
+      in="/"/>
 </wfe:Workflow>
