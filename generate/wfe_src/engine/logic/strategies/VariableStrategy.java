@@ -6,7 +6,7 @@ public class VariableStrategy implements IOperationStrategy {
 	
 	@Override
 	public boolean execute(Object owner) {
-		if(owner instanceof Variable)
+		if(!(owner instanceof Variable))
 			throw new IllegalArgumentException("The supplied owner is not a Variable");
 		
 		Variable v = (Variable)owner;

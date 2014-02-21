@@ -14,7 +14,7 @@ public class SetVariableStrategy implements IOperationStrategy {
 		SetVariable sv = (SetVariable)owner;
 		
 		Variable var = sv.getSets_variable();
-		Expression exp = sv.getSets_variable();
+		Expression exp = sv.getEvaluated_expression();
 		
 		if(var != null && exp != null)
 			var.setValue(exp.calculate());
