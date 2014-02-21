@@ -22,7 +22,7 @@ public class RunStrategy implements IOperationStrategy {
 	 * @throws IllegalArgumentException if input object is not a Node
 	 */
 	@Override
-	public boolean execute(Object owner) {
+	public synchronized boolean execute(Object owner) {
 		boolean success = false;
 		Logger logger = Logger.getLogger("NodeLogger");
 		
