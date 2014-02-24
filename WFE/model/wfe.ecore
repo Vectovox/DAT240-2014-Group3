@@ -67,7 +67,8 @@
       <details key="more_sleep_than_zero" value="&#xA;&#x9;&#x9;&#x9;self.seconds > 0"/>
     </eAnnotations>
     <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="seconds" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="seconds" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StartNode" eSuperTypes="#//Node">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">

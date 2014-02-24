@@ -118,9 +118,9 @@
   <children xmi:type="notation:Shape" xmi:id="_EP4W4Iy6EeOi88u45R3q-Q" type="2001" fontName="Segoe UI">
     <children xmi:type="notation:DecorationNode" xmi:id="_EP4W4oy6EeOi88u45R3q-Q" type="5001"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_EP4W44y6EeOi88u45R3q-Q" type="7001">
-      <children xmi:type="notation:Node" xmi:id="_e-4xEI_kEeOlGILNj4qQEQ" type="3001">
+      <children xmi:type="notation:Node" xmi:id="_s1NjAJ1eEeOupNBA3mEF8w" type="3001">
         <element xmi:type="ecore:EAttribute" href="wfe.ecore#//Sleep/seconds"/>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_e-4xEY_kEeOlGILNj4qQEQ"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_s1NjAZ1eEeOupNBA3mEF8w"/>
       </children>
       <styles xmi:type="notation:SortingStyle" xmi:id="_EP4W5Iy6EeOi88u45R3q-Q"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_EP4W5Yy6EeOi88u45R3q-Q"/>
