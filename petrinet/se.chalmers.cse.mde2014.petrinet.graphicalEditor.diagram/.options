@@ -1,7 +1,0 @@
-# Tracing options for the se.chalmers.cse.mde2014.petrinet.graphicalEditor.diagram plug-in
-
-# Common issues
-se.chalmers.cse.mde2014.petrinet.graphicalEditor.diagram/debug=false
-
-# Visual IDs
-se.chalmers.cse.mde2014.petrinet.graphicalEditor.diagram/debug/visualID=false
