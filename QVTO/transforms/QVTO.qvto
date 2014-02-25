@@ -4,5 +4,11 @@ modeltype PETRI uses petrinet('chalmers.se/cse/mde2014');
 transformation QVTO(in wfe : WFE, out PETRI);
 
 main() {
-	//wfe.rootObjects()[WFE::Workflow]->map model2RDBModel();
+	wfe.rootObjects()[WFE::Workflow]->map wfe2petri();
+}
+
+
+mapping Workflow::wfe2petri() : PETRI::PetriNet {
+	
+	
 }
