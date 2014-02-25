@@ -11,3 +11,4 @@ generate/src/generate/main/Generate.java
 generate/tasks/generate.xml
 generate/tasks/generateTarget.xml
 generate/wfe_src/engine/gen/
+QVTO/gen/

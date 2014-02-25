@@ -9,6 +9,31 @@ main() {
 
 
 mapping Workflow::wfe2petri() : PETRI::PetriNet {
+	name := self.name;
+	nodes :=self.contains_nodes.map node2node(result);
+	arcs := self.contains_arcs.map arc2arc(result);
+	//TODO: resources if possible
+}
+
+
+
+mapping WFE::Node::node2node(in petrinet : PETRI::PetriNet) : PETRI::Node {
+	 init{
+	 	result := self.map node2place(petrinet);
+	 }
+}
+
+mapping Arc::arc2arc(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+	net := petrinet;
+	source := self.source.map node2node(petrinet);
+	target := self.target.map node2node(petrinet);
 	
-	
+}
+
+
+mapping Node::node2place(in petrinet : PETRI::PetriNet) : PETRI::Place {
+	name := self.name;
+	incoming := self.incoming.map arc2arc(petrinet);
+	outgoing := self.outgoing.map arc2arc(petrinet);
+	net:= petrinet;
 }
