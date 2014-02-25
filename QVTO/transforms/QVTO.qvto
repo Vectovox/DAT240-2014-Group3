@@ -1,0 +1,8 @@
+modeltype WFE uses wfe('http://wfe/1.0');
+modeltype PETRI uses petrinet('chalmers.se/cse/mde2014');
+
+transformation QVTO(in wfe : WFE, out PETRI);
+
+main() {
+	//wfe.rootObjects()[WFE::Workflow]->map model2RDBModel();
+}
