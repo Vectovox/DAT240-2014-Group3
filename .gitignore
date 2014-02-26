@@ -12,3 +12,6 @@ generate/tasks/generate.xml
 generate/tasks/generateTarget.xml
 generate/wfe_src/engine/gen/
 QVTO/gen/
+petrinet/se.chalmers.cse.mde2014.petrinet.graphicalEditor.edit/
+petrinet/se.chalmers.cse.mde2014.petrinet.graphicalEditor.editor/
+petrinet/se.chalmers.cse.mde2014.petrinet.graphicalEditor.tests/
