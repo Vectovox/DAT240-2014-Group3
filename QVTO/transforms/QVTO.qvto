@@ -1,7 +1,7 @@
 modeltype WFE uses wfe('http://wfe/1.0');
 modeltype PETRI uses petrinet('chalmers.se/cse/mde2014');
 
-transformation QVTO(in wfe : WFE, out PETRI);
+transformation Workflow_To_Petri(in wfe : WFE, out PETRI);
 
 main() {
 	wfe.rootObjects()[WFE::Workflow]->map wfe2petri();
@@ -10,12 +10,10 @@ main() {
 
 mapping Workflow::wfe2petri() : PETRI::PetriNet {
 	name := self.name;
-	nodes :=self.contains_nodes.map node2node(result);
-	arcs := self.contains_arcs.map arc2arc(result);
+	nodes := self.contains_nodes.map node2node(result)->union(self.contains_arcs.map arc2transition(result));
+	arcs := self.contains_arcs.map arc2arc1(result)->union(self.contains_arcs.map arc2arc2(result));
 	//TODO: resources if possible
 }
-
-
 
 mapping WFE::Node::node2node(in petrinet : PETRI::PetriNet) : PETRI::Node {
 	 init{
@@ -23,17 +21,24 @@ mapping WFE::Node::node2node(in petrinet : PETRI::PetriNet) : PETRI::Node {
 	 }
 }
 
-mapping Arc::arc2arc(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+mapping Arc::arc2transition(in petrinet : PETRI::PetriNet) : PETRI::Transition {
 	net := petrinet;
-	source := self.source.map node2node(petrinet);
-	target := self.target.map node2node(petrinet);
-	
+	name := self.name;
 }
 
+mapping WFE::Arc::arc2arc1(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+	source := self.source.resolveoneIn(WFE::Node::node2place, PETRI::Place);
+	target := self.resolveoneIn(WFE::Arc::arc2transition, PETRI::Transition);
+}
+
+mapping WFE::Arc::arc2arc2(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+	source := self.resolveoneIn(WFE::Arc::arc2transition, PETRI::Transition);
+	target := self.target.resolveoneIn(WFE::Node::node2place, PETRI::Place);
+}
 
 mapping Node::node2place(in petrinet : PETRI::PetriNet) : PETRI::Place {
 	name := self.name;
-	incoming := self.incoming.map arc2arc(petrinet);
-	outgoing := self.outgoing.map arc2arc(petrinet);
-	net:= petrinet;
+//	incoming := self.incoming.map arc2arc(petrinet);
+//	outgoing := self.outgoing.map arc2arc(petrinet);
+	net := petrinet;
 }
