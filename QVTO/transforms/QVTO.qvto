@@ -5,48 +5,73 @@ transformation Workflow_To_Petri(in wfe : WFE, out PETRI);
 
 main() {
 	var petri := wfe.rootObjects()[WFE::Workflow]->map wfe2petri();
-	petri.arcs->forEach(arc){
-		arc.target.incoming += arc;
-		arc.source.outgoing += arc;
-	}
 }
 
 
 mapping Workflow::wfe2petri() : PETRI::PetriNet {
 	name := self.name;
-	nodes := self.contains_nodes.map node2node(result)->union(self.contains_arcs.map arc2transition(result));
-	arcs := self.contains_arcs.map arc2arc1(result)->union(self.contains_arcs.map arc2arc2(result));
+	var transitions := self.contains_nodes.map node2transition(result); 
+	var places := PETRI::Place.allInstances();
+	
+	nodes := transitions.oclAsType(PETRI::Node)->union(places->asSequence());
+	
+	places->forEach(place) {
+		var wfeArc := place.invresolveoneIn(WFE::Arc::arc2place, WFE::Arc);
+		var transition := wfeArc.source.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
+		var newArc := new PETRI::Arc();
+		newArc.source := transition;
+		newArc.target := place;
+		transition.outgoing += newArc;
+		place.incoming += newArc
+	};
+	
+	WFE::StartNode.allInstances()->forEach(startNode) {
+		var startTransition := startNode.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
+		var arc := new PETRI::Arc();
+		var place := new PETRI::Place();
+		
+		startTransition.incoming += arc;
+		arc.target := startTransition;
+		place.outgoing += arc;
+		arc.source := place;
+		place.name := 'derStart';
+		place.tokens += new PETRI::Token();
+		
+		nodes += place;  
+	};
+	
+	WFE::EndNode.allInstances()->forEach(endNode) {
+		var endTransition := endNode.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
+		var arc := new PETRI::Arc();
+		var place := new PETRI::Place();
+		
+		endTransition.outgoing += arc;
+		arc.source := endTransition;
+		place.incoming += arc;
+		arc.target := place;
+		place.name := 'This is the end.';
+		
+		nodes += place;
+	};
+	
+	arcs := PETRI::Arc.allInstances(); 
 }
 
-mapping WFE::Node::node2node(in petrinet : PETRI::PetriNet) : PETRI::Node {
-	 init{
-	 	result := self.map node2place(petrinet);
-	 }
-}
-
-mapping Arc::arc2transition(in petrinet : PETRI::PetriNet) : PETRI::Transition {
+mapping WFE::Node::node2transition(in petrinet : PETRI::PetriNet) : PETRI::Transition {
 	net := petrinet;
 	name := self.name;
+	incoming := self.incoming.map incoming2arc(petrinet, self);
 }
 
-mapping WFE::Arc::arc2arc1(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+mapping WFE::Arc::incoming2arc(in petrinet : PETRI::PetriNet, in node : WFE::Node) : PETRI::Arc {
 	net := petrinet;
-	source := self.source.resolveoneIn(WFE::Node::node2place, PETRI::Place);
-	target := self.resolveoneIn(WFE::Arc::arc2transition, PETRI::Transition);
+	target := node.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
+	source := self.map arc2place(petrinet, result); 	
 }
 
-mapping WFE::Arc::arc2arc2(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+mapping WFE::Arc::arc2place(in petrinet : PETRI::PetriNet, in arc : PETRI::Arc) : PETRI::Place {
 	net := petrinet;
-	source := self.resolveoneIn(WFE::Arc::arc2transition, PETRI::Transition);
-	target := self.target.resolveoneIn(WFE::Node::node2place, PETRI::Place);
-}
-
-mapping Node::node2place(in petrinet : PETRI::PetriNet) : PETRI::Place {
-	net := petrinet;
+	outgoing += arc;
 	name := self.name;
-	if self.oclIsTypeOf(WFE::StartNode) then tokens := new PETRI::Token() endif;
-}
-
-query WFE::Node::getInitialTokenCount() : Integer {
-	return if self.oclIsTypeOf(WFE::StartNode) then 1 else 0 endif;
+	 
 }
