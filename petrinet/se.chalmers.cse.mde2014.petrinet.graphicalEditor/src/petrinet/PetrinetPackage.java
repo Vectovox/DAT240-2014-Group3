@@ -277,13 +277,22 @@ public interface PetrinetPackage extends EPackage {
 	int TRANSITION__OUTGOING = NODE__OUTGOING;
 
 	/**
+	 * The feature id for the '<em><b>Seconds</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRANSITION__SECONDS = NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Transition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TRANSITION_FEATURE_COUNT = NODE_FEATURE_COUNT + 0;
+	int TRANSITION_FEATURE_COUNT = NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Transition</em>' class.
@@ -547,6 +556,17 @@ public interface PetrinetPackage extends EPackage {
 	EClass getTransition();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link petrinet.Transition#getSeconds <em>Seconds</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Seconds</em>'.
+	 * @see petrinet.Transition#getSeconds()
+	 * @see #getTransition()
+	 * @generated
+	 */
+	EAttribute getTransition_Seconds();
+
+	/**
 	 * Returns the meta object for class '{@link petrinet.Place <em>Place</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -719,6 +739,14 @@ public interface PetrinetPackage extends EPackage {
 		 * @generated
 		 */
 		EClass TRANSITION = eINSTANCE.getTransition();
+
+		/**
+		 * The meta object literal for the '<em><b>Seconds</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TRANSITION__SECONDS = eINSTANCE.getTransition_Seconds();
 
 		/**
 		 * The meta object literal for the '{@link petrinet.impl.PlaceImpl <em>Place</em>}' class.
