@@ -65,6 +65,12 @@ mapping Workflow::wfe2petri() : PETRI::PetriNet {
 mapping WFE::Node::node2transition(in petrinet : PETRI::PetriNet) : PETRI::Transition {
 	net := petrinet;
 	name := self.name;
+	if self.oclIsKindOf(WFE::Sleep) then {
+		result.seconds := self->oclAsType(WFE::Sleep).seconds;
+	} else {
+		result.seconds := 0;
+	} endif;
+	
 	incoming := self.incoming.map incoming2arc(petrinet, self);
 	if(self.oclIsKindOf(WFE::Activity) and self.oclAsType(WFE::Activity).has_assigned->size() > 0) then {
 		var inc := self.oclAsType(WFE::Activity).map hasAssignedResource2incomingArc(petrinet);
