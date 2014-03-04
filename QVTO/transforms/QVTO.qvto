@@ -97,6 +97,7 @@ mapping WFE::Arc::arc2place(in petrinet : PETRI::PetriNet, in arc : PETRI::Arc) 
 mapping WFE::Resource::resource2place(in petrinet : PETRI::PetriNet) : PETRI::Place {
 	net := petrinet;
 	name := self.name;	
+	tokens += new PETRI::Token();
 }
 
 mapping WFE::Activity::hasAssignedResource2incomingArc(in petrinet : PETRI::PetriNet) : PETRI::Arc {
