@@ -10,26 +10,30 @@ main() {
 
 mapping Workflow::wfe2petri() : PETRI::PetriNet {
 	name := self.name;
+	nodes := self.has_resources.map resource2place(result); 
 	var transitions := self.contains_nodes.map node2transition(result); 
 	var places := PETRI::Place.allInstances();
 	
-	nodes := transitions.oclAsType(PETRI::Node)->union(places->asSequence());
+	nodes += transitions.oclAsType(PETRI::Node)->union(places->asSequence());
 	
 	places->forEach(place) {
 		var wfeArc := place.invresolveoneIn(WFE::Arc::arc2place, WFE::Arc);
-		var transition := wfeArc.source.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
-		var newArc := new PETRI::Arc();
-		newArc.source := transition;
-		newArc.target := place;
-		transition.outgoing += newArc;
-		place.incoming += newArc
+		if(wfeArc <> null) then {
+			var transition := wfeArc.source.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
+			var newArc := new PETRI::Arc();
+			newArc.net := result;
+			newArc.source := transition;
+			newArc.target := place;
+			transition.outgoing += newArc;
+			place.incoming += newArc	
+		} endif;
 	};
 	
 	WFE::StartNode.allInstances()->forEach(startNode) {
 		var startTransition := startNode.resolveoneIn(WFE::Node::node2transition, PETRI::Transition);
 		var arc := new PETRI::Arc();
 		var place := new PETRI::Place();
-		
+		arc.net := result;
 		startTransition.incoming += arc;
 		arc.target := startTransition;
 		place.outgoing += arc;
@@ -54,6 +58,7 @@ mapping Workflow::wfe2petri() : PETRI::PetriNet {
 		nodes += place;
 	};
 	
+	
 	arcs := PETRI::Arc.allInstances(); 
 }
 
@@ -61,6 +66,14 @@ mapping WFE::Node::node2transition(in petrinet : PETRI::PetriNet) : PETRI::Trans
 	net := petrinet;
 	name := self.name;
 	incoming := self.incoming.map incoming2arc(petrinet, self);
+	if(self.oclIsKindOf(WFE::Activity) and self.oclAsType(WFE::Activity).has_assigned->size() > 0) then {
+		var inc := self.oclAsType(WFE::Activity).map hasAssignedResource2incomingArc(petrinet);
+		incoming += inc;
+		inc.source.outgoing += inc;
+		var outg := self.oclAsType(WFE::Activity).map hasAssignedResource2outGoingArc(petrinet);
+		outgoing += outg;
+		outg.target.incoming += outg;
+	} endif;
 }
 
 mapping WFE::Arc::incoming2arc(in petrinet : PETRI::PetriNet, in node : WFE::Node) : PETRI::Arc {
@@ -73,5 +86,21 @@ mapping WFE::Arc::arc2place(in petrinet : PETRI::PetriNet, in arc : PETRI::Arc) 
 	net := petrinet;
 	outgoing += arc;
 	name := self.name;
-	 
+}
+
+mapping WFE::Resource::resource2place(in petrinet : PETRI::PetriNet) : PETRI::Place {
+	net := petrinet;
+	name := self.name;	
+}
+
+mapping WFE::Activity::hasAssignedResource2incomingArc(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+	net := petrinet;
+	source := self.has_assigned.resolveoneIn(WFE::Resource::resource2place, PETRI::Place); // Place/Resource
+	target := self.resolveoneIn(WFE::Node::node2transition, PETRI::Transition); // Transistion/Activity
+}
+
+mapping WFE::Activity::hasAssignedResource2outGoingArc(in petrinet : PETRI::PetriNet) : PETRI::Arc {
+	net := petrinet;
+	target := self.has_assigned.resolveoneIn(WFE::Resource::resource2place, PETRI::Place); // Place/Resource
+	source := self.resolveoneIn(WFE::Node::node2transition, PETRI::Transition); // Transistion/Activity
 }
