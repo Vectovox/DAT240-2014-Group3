@@ -24,8 +24,20 @@
       name="sleepToSynch"/>
   <contains_arcs
       source="confirm"
+      target="setVariable"
+      name="confirmToSetVariable"/>
+  <contains_arcs
+      source="confirm"
+      target="gate"
+      name="confirmToGate"/>
+  <contains_arcs
+      source="gate"
       target="synch"
-      name="confirmToSynch"/>
+      name="gateToSynch"/>
+  <contains_arcs
+      source="setVariable"
+      target="confirm"
+      name="setVariableToConfirm"/>
   <contains_nodes
       xsi:type="wfe:StartNode"
       name="start"
@@ -36,24 +48,45 @@
       name="wait"
       outgoing="sleepToSynch"
       incoming="startToSleep"
-      in="/">
-    <seconds>10.0</seconds>
-  </contains_nodes>
+      in="/"
+      seconds="10.0"/>
   <contains_nodes
       xsi:type="wfe:Confirm"
       name="confirm"
-      outgoing="confirmToSynch"
-      incoming="startToConfirm"
+      outgoing="confirmToSetVariable confirmToGate"
+      incoming="startToConfirm setVariableToConfirm"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:Synchbar"
       name="synch"
       outgoing="synchToEnd"
-      incoming="sleepToSynch confirmToSynch"
+      incoming="sleepToSynch gateToSynch"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:EndNode"
       name="end"
       incoming="synchToEnd"
       in="/"/>
+  <contains_nodes
+      xsi:type="wfe:Gate"
+      name="gate"
+      outgoing="gateToSynch"
+      incoming="confirmToGate"
+      in="/"
+      condition="gateVariable"/>
+  <contains_nodes
+      xsi:type="wfe:SetVariable"
+      name="setVariable"
+      outgoing="setVariableToConfirm"
+      incoming="confirmToSetVariable"
+      in="/"
+      description=""
+      sets_variable="gateVariable"
+      evaluated_expression="true"/>
+  <contains_expressions
+      xsi:type="wfe:Variable"
+      name="gateVariable"/>
+  <contains_expressions
+      xsi:type="wfe:True"
+      name="true"/>
 </wfe:Workflow>
