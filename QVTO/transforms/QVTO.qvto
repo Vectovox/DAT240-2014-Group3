@@ -58,6 +58,32 @@ mapping Workflow::wfe2petri() : PETRI::PetriNet {
 		nodes += place;
 	};
 	
+	PETRI::Transition.allInstances()->forEach(transition){
+		var v := transition.invresolveoneIn(WFE::Node::node2transition, WFE::Node);
+		if v.oclIsKindOf(WFE::Synchbar) = false then {
+			if(transition.incoming->size() > 1) then {
+				var targetnode := transition.incoming->first().source;
+				var first := true;
+				transition.incoming->forEach(arc){
+					if(first = false) then {
+						var trans := new PETRI::Transition();
+						trans.name := "looptrans";
+						trans.seconds := 0;
+						trans.net := result;
+						trans.incoming += arc;
+						arc.target := trans;
+						var newarc := new PETRI::Arc();
+						newarc.source := trans;
+						newarc.target := targetnode;
+						targetnode.incoming := targetnode.incoming->excluding(arc);
+						trans.outgoing += arc;
+						result.nodes += trans;
+					}endif;
+					first := false;
+				};
+			} endif;
+		} endif;
+	};
 	
 	arcs := PETRI::Arc.allInstances(); 
 }

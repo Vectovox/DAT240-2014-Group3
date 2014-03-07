@@ -26,6 +26,14 @@
       source="confirm"
       target="synch"
       name="confirmToSynch"/>
+  <contains_arcs
+      source="loopconfirm"
+      target="confirm"
+      name="loopconfirmToConfirm"/>
+  <contains_arcs
+      source="confirm"
+      target="loopconfirm"
+      name="confirmToLoopconfirm"/>
   <contains_nodes
       xsi:type="wfe:StartNode"
       name="start"
@@ -42,8 +50,8 @@
   <contains_nodes
       xsi:type="wfe:Confirm"
       name="confirm"
-      outgoing="confirmToSynch"
-      incoming="startToConfirm"
+      outgoing="confirmToSynch confirmToLoopconfirm"
+      incoming="startToConfirm loopconfirmToConfirm"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:Synchbar"
@@ -55,5 +63,11 @@
       xsi:type="wfe:EndNode"
       name="end"
       incoming="synchToEnd"
+      in="/"/>
+  <contains_nodes
+      xsi:type="wfe:Confirm"
+      name="loopconfirm"
+      outgoing="loopconfirmToConfirm"
+      incoming="confirmToLoopconfirm"
       in="/"/>
 </wfe:Workflow>
