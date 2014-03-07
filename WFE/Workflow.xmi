@@ -34,6 +34,15 @@
       source="confirm"
       target="loopconfirm"
       name="confirmToLoopconfirm"/>
+  <contains_arcs
+      source="confirm"
+      target="confirm"
+      name="confirmToConfirm"/>
+  <has_resources
+      xsi:type="wfe:Actor"
+      name="Klaus"
+      first_name="Hej"
+      last_name="Hejehj"/>
   <contains_nodes
       xsi:type="wfe:StartNode"
       name="start"
@@ -44,14 +53,15 @@
       name="wait"
       outgoing="sleepToSynch"
       incoming="startToSleep"
-      in="/">
+      in="/"
+      has_assigned="//@has_resources.0">
     <seconds>10.0</seconds>
   </contains_nodes>
   <contains_nodes
       xsi:type="wfe:Confirm"
       name="confirm"
-      outgoing="confirmToSynch confirmToLoopconfirm"
-      incoming="startToConfirm loopconfirmToConfirm"
+      outgoing="confirmToSynch confirmToLoopconfirm confirmToConfirm"
+      incoming="startToConfirm loopconfirmToConfirm confirmToConfirm"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:Synchbar"
@@ -69,5 +79,6 @@
       name="loopconfirm"
       outgoing="loopconfirmToConfirm"
       incoming="confirmToLoopconfirm"
-      in="/"/>
+      in="/"
+      has_assigned="//@has_resources.0"/>
 </wfe:Workflow>

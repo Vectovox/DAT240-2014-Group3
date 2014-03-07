@@ -39,12 +39,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Activity" abstract="true" eSuperTypes="#//Node">
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="at_least_one_incoming_arc at_least_one_outgoing_arc at_most_one_incoming_arc"/>
+      <details key="constraints" value="at_least_one_incoming_arc at_least_one_outgoing_arc"/>
     </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
       <details key="at_least_one_incoming_arc" value="&#xA;&#x9;&#x9;&#x9;self.incoming->size() > 0"/>
       <details key="at_least_one_outgoing_arc" value="&#xA;&#x9;&#x9;&#x9;self.outgoing->size() > 0"/>
-      <details key="at_most_one_incoming_arc" value="&#xA;&#x9;&#x9;&#x9;self.incoming->size() = 1 or self.oclType().conformsTo(Synchbar)"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="has_assigned" upperBound="-1"
         eType="#//Resource"/>
@@ -60,12 +59,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="path" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Sleep" eSuperTypes="#//Activity">
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
-      <details key="constraints" value="more_sleep_than_zero"/>
-    </eAnnotations>
-    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
-      <details key="more_sleep_than_zero" value="&#xA;&#x9;&#x9;&#x9;self.seconds > 0"/>
-    </eAnnotations>
     <eOperations name="strategy" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="seconds" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble" defaultValueLiteral="0"/>
