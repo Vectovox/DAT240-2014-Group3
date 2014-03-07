@@ -24,20 +24,20 @@
       name="sleepToSynch"/>
   <contains_arcs
       source="confirm"
-      target="setVariable"
-      name="confirmToSetVariable"/>
+      target="loopSleep"
+      name="confirmToLoopSleep"/>
   <contains_arcs
       source="confirm"
-      target="gate"
-      name="confirmToGate"/>
+      target="secondConfirm"
+      name="confirmToSecondConfirm"/>
   <contains_arcs
-      source="gate"
+      source="secondConfirm"
       target="synch"
-      name="gateToSynch"/>
+      name="secondConfirmToSynch"/>
   <contains_arcs
-      source="setVariable"
+      source="loopSleep"
       target="confirm"
-      name="setVariableToConfirm"/>
+      name="loopSleepToConfirm"/>
   <contains_nodes
       xsi:type="wfe:StartNode"
       name="start"
@@ -53,14 +53,14 @@
   <contains_nodes
       xsi:type="wfe:Confirm"
       name="confirm"
-      outgoing="confirmToSetVariable confirmToGate"
-      incoming="startToConfirm setVariableToConfirm"
+      outgoing="confirmToLoopSleep confirmToSecondConfirm"
+      incoming="startToConfirm loopSleepToConfirm"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:Synchbar"
       name="synch"
       outgoing="synchToEnd"
-      incoming="sleepToSynch gateToSynch"
+      incoming="sleepToSynch secondConfirmToSynch"
       in="/"/>
   <contains_nodes
       xsi:type="wfe:EndNode"
@@ -68,25 +68,16 @@
       incoming="synchToEnd"
       in="/"/>
   <contains_nodes
-      xsi:type="wfe:Gate"
-      name="gate"
-      outgoing="gateToSynch"
-      incoming="confirmToGate"
-      in="/"
-      condition="gateVariable"/>
+      xsi:type="wfe:Confirm"
+      name="secondConfirm"
+      outgoing="secondConfirmToSynch"
+      incoming="confirmToSecondConfirm"
+      in="/"/>
   <contains_nodes
-      xsi:type="wfe:SetVariable"
-      name="setVariable"
-      outgoing="setVariableToConfirm"
-      incoming="confirmToSetVariable"
+      xsi:type="wfe:Sleep"
+      name="loopSleep"
+      outgoing="loopSleepToConfirm"
+      incoming="confirmToLoopSleep"
       in="/"
-      description=""
-      sets_variable="gateVariable"
-      evaluated_expression="true"/>
-  <contains_expressions
-      xsi:type="wfe:Variable"
-      name="gateVariable"/>
-  <contains_expressions
-      xsi:type="wfe:True"
-      name="true"/>
+      seconds="5.0"/>
 </wfe:Workflow>
